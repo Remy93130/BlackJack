@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         hydrateWidgets();
         container.setBackgroundColor(ContextCompat.getColor(this, backgroundColorId));
         addListenerToButtonsAndBar();
-        displayLayoutProperly();
+        // displayLayoutProperly();
         textBalance.setText(getString(R.string.txt_balance).replace("{}", String.valueOf(gameInstance.getBalance())));
         textBestBank.setText(getString(R.string.txt_bank_best).replace("{}", String.valueOf(gameInstance.getBankBest())));
         textBestPlayer.setText(getString(R.string.txt_bank_best).replace("{}", String.valueOf(gameInstance.getBankBest())));
