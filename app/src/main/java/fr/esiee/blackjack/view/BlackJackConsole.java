@@ -12,6 +12,7 @@ import fr.esiee.blackjack.model.Value;
 public class BlackJackConsole {
 
     public BlackJackConsole() {
+        testDisplayCards();
         testDisplayAs();
     }
 

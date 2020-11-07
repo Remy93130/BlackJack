@@ -8,7 +8,7 @@ public enum Color {
 
     private final String symbole;
 
-    private Color(String symbole) {
+    Color(String symbole) {
         this.symbole = symbole;
     }
 

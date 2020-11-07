@@ -8,6 +8,8 @@ import fr.esiee.blackjack.model.Card;
 
 public class BlackJack {
 
+    // region Constants
+
     /**
      * Nombre de jeu de 52 cartes dans le deck
      */
@@ -22,6 +24,8 @@ public class BlackJack {
      * Argent initial au debut d une partie
      */
     public static final int INIT_BALANCE = 5000;
+
+    // endregion
 
     private final Deck deck;
 
@@ -51,7 +55,6 @@ public class BlackJack {
         playerHand.clear();
         bankHand.clear();
         gameFinished = false;
-
     }
 
     public void initRound() throws EmptyDeckException {

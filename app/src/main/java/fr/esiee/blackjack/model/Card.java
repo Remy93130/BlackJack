@@ -2,7 +2,7 @@ package fr.esiee.blackjack.model;
 
 public class Card {
 
-    // Suffixe du nom des cartes dans les ressources
+    // region Constants
     public static final String WIN_TOKEN = "winner";
 
     public static final String LOOSE_TOKEN = "looser";
@@ -10,6 +10,8 @@ public class Card {
     public static final String DRAW_TOKEN = "draw";
 
     public static final String BLACKJACK_TOKEN = "blackjack";
+
+    // endregion
 
     private final Value value;
 

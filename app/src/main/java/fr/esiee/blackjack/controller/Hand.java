@@ -1,6 +1,5 @@
 package fr.esiee.blackjack.controller;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,15 +25,15 @@ public class Hand {
     public List<Integer> count() {
         List<Integer> list = new LinkedList<>();
         list.add(0);
-        boolean isAs = false;
+        boolean hasAs = false;
         for (Card card : cardList) {
             if (card.getValue().equals(Value.AS)) {
-                isAs = true;
+                hasAs = true;
             }
             list.set(0, list.get(0) + card.getPoints());
         }
         // Si on a eu un as on ajoute score + 10 a une nouvelle case
-        if (isAs) {
+        if (hasAs) {
             list.add(list.get(0) + 10);
         }
         return list;

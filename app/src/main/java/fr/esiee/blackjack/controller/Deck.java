@@ -20,7 +20,6 @@ public class Deck {
 
     public Deck(int nbBox) {
         this.cardList = new LinkedList<>();
-        // Creation des nbBox decks
         for (int i = 0; i < nbBox; i++) {
             for (Color color : Color.values()) {
                 for (Value value : Value.values()) {
