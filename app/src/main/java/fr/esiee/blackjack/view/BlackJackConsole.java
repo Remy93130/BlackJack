@@ -2,6 +2,9 @@ package fr.esiee.blackjack.view;
 
 import android.util.Log;
 
+import fr.esiee.blackjack.controller.Deck;
+import fr.esiee.blackjack.controller.Hand;
+import fr.esiee.blackjack.exception.EmptyDeckException;
 import fr.esiee.blackjack.model.Card;
 import fr.esiee.blackjack.model.Color;
 import fr.esiee.blackjack.model.Value;
@@ -9,6 +12,10 @@ import fr.esiee.blackjack.model.Value;
 public class BlackJackConsole {
 
     public BlackJackConsole() {
+        testDisplayAs();
+    }
+
+    private void testDisplayCards() {
         Card[] tab = {
                 new Card(Value.TWO, Color.HEART),
                 new Card(Value.JACK, Color.SPADE)
@@ -36,8 +43,9 @@ public class BlackJackConsole {
                 Log.e("CHECK", "It's not a face");
             }
         }
+    }
 
-        /*
+    private void testDisplayAs() {
         Deck d = new Deck(1);
         Hand h = new Hand();
         Log.i("CHECK", h.toString());
@@ -51,6 +59,5 @@ public class BlackJackConsole {
             System.err.println(e.getMessage());
             System.exit(-1);
         }
-         */
     }
 }

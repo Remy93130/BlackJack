@@ -1,5 +1,6 @@
 package fr.esiee.blackjack.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,28 +28,35 @@ public class Hand {
         list.add(0);
         boolean isAs = false;
         for (Card card : cardList) {
-            // Si on a 2 scores on incremente le second
-            if (isAs) {
-                list.set(1, list.get(1) + card.getPoints());
-            }
-            // Si on tombe sur un as pour la premiere fois (2 as = 22 donc on prend pas en compte)
-            if (!isAs && card.getValue().equals(Value.AS)) {
+            if (card.getValue().equals(Value.AS)) {
                 isAs = true;
-                list.add(list.get(0) + 11);
             }
             list.set(0, list.get(0) + card.getPoints());
+        }
+        // Si on a eu un as on ajoute score + 10 a une nouvelle case
+        if (isAs) {
+            list.add(list.get(0) + 10);
         }
         return list;
     }
 
     public int best() {
-        int bestValue = 0;
-        for (int value : count()) {
+        int bestValue = -1;
+        List<Integer> cards = count();
+        for (int value : cards) {
             if (value > bestValue && value < 22) {
                 bestValue = value;
             }
         }
+        // Si depassement de 21 par les 2 score on prend le plus proche
+        if (bestValue == -1) {
+            bestValue = Collections.min(cards);
+        }
         return bestValue;
+    }
+
+    public List<Card> getCardList() {
+        return cardList;
     }
 
     public boolean isOver21() {

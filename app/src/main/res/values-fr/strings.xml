@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Blackjack</string>
+    <string name="btn_card">Nouvelle carte</string>
+    <string name="btn_stop">Arrêter</string>
+    <string name="btn_reset">Recommencer</string>
+    <string name="menu_settings">Paramètres</string>
+    <string name="txt_bank">Banque</string>
+    <string name="txt_bank_best">Score banque : {}</string>
+    <string name="txt_player">Joueur</string>
+    <string name="txt_player_best">Score joueur : {}</string>
+    <string name="txt_balance">{}€</string>
+    <string name="txt_bet">Votre mise : 150€</string>
+    <string name="txt_btn_bet">Miser</string>
+    <string name="txt_dialog_title">Configuration blackjack</string>
+    <string name="txt_confirm">Confirmer</string>
+    <string name="txt_cancel">Annuler</string>
+    <string name="txt_background_green">Fond Vert</string>
+    <string name="txt_background_black">Fond noir</string>
+    <string name="txt_number_of_decks">Nombre de jeu de cartes</string>
+    <string name="txt_initial_balance">Argent de départ</string>
+    <string name="txt_player_name">Nom du joueur</string>
+    <string name="player">Joueur</string>
+    <string name="txt_money_out">Pas assez d\'argeent</string>
+</resources>
