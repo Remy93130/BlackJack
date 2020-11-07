@@ -3,10 +3,10 @@ package fr.esiee.blackjack.view;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private int backgroundColorId;
     private int deckNumber;
     private int startedBalance;
+    private int orientation;
     private String playerName;
 
     @Override
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         restoreSettings();
         // new BlackJackConsole();
+        setRequestedOrientation(orientation);
         gameInstance = new BlackJack(deckNumber, startedBalance);
         Log.i("GAME", "Create the game with " + deckNumber + " deck(s)");
         setContentView(R.layout.activity_main);
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         deckNumber = preferences.getInt("deckNumber", BlackJack.INIT_DECK);
         backgroundColorId = preferences.getInt("backgroundColorId", R.color.background_green);
         startedBalance = preferences.getInt("startedBalance", BlackJack.INIT_BALANCE);
+        orientation = preferences.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         playerName = preferences.getString("playerName", getResources().getString(R.string.txt_player));
     }
 
@@ -283,30 +286,32 @@ public class MainActivity extends AppCompatActivity {
         RadioButton radioBackgroundGreen = viewDialog.findViewById(R.id.diag_back_green);
         RadioButton radioLocaleEn = viewDialog.findViewById(R.id.diag_locale_en);
         RadioButton radioLocaleFr = viewDialog.findViewById(R.id.diag_locale_fr);
+        RadioButton radioLandscape = viewDialog.findViewById(R.id.diag_orientation_landscape);
+        RadioButton radioPortrait = viewDialog.findViewById(R.id.diag_orientation_portrait);
         // Fill inputs
         inputPlayerName.setText(playerName);
         inputBalance.setText(String.valueOf(startedBalance));
         inputDeck.setText(String.valueOf(deckNumber));
-        // TODO: improve if statements
-        // Get background current color
-        ColorDrawable col = (ColorDrawable) container.getBackground();
-        int currentColorId = col.getColor();
-        int greenColorId = ContextCompat.getColor(this, R.color.background_green);
         // Set radio button checked by default
-        if (currentColorId == greenColorId) {
+        if (ContextCompat.getColor(this, R.color.background_green) == backgroundColorId) {
             radioBackgroundGreen.setChecked(true);
         } else {
             radioBackgroundBlack.setChecked(true);
         }
-        if (getResources().getConfiguration().getLocales().get(0).toLanguageTag().equals("fr")) {
+        if (locale.equals("fr")) {
             radioLocaleFr.setChecked(true);
         } else {
             radioLocaleEn.setChecked(true);
         }
+        if (orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
+            radioPortrait.setChecked(true);
+        } else {
+            radioLandscape.setChecked(true);
+        }
         diag.setView(viewDialog);
         // Listeners
         diag.setPositiveButton(R.string.txt_confirm, (dialog, sumthin) -> {
-            changeGameSettings(inputDeck, radioBackgroundBlack, radioLocaleFr, inputPlayerName, inputBalance);
+            changeGameSettings(inputDeck, radioBackgroundBlack, radioLocaleFr, inputPlayerName, inputBalance, radioLandscape);
             Toast.makeText(this, R.string.txt_confirm, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
@@ -317,7 +322,7 @@ public class MainActivity extends AppCompatActivity {
         diag.show();
     }
 
-    private void changeGameSettings(EditText inputDeck, RadioButton radioBackgroundBlack, RadioButton radioButtonLocaleFr, EditText inputPlayer, EditText inputBalance) {
+    private void changeGameSettings(EditText inputDeck, RadioButton radioBackgroundBlack, RadioButton radioButtonLocaleFr, EditText inputPlayer, EditText inputBalance, RadioButton isLandscape) {
         int nbDeck, balance;
         // Cast values and fallback to default value
         try {
@@ -339,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("PL", "->" + playerName + " " + inputPlayer.getText().toString().isEmpty());
         backgroundColorId = (radioBackgroundBlack.isChecked()) ? R.color.background_black : R.color.background_green;
         locale = (radioButtonLocaleFr.isChecked()) ? "fr" : "en";
+        orientation = (isLandscape.isChecked()) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         recreate();
     }
 
@@ -375,6 +381,7 @@ public class MainActivity extends AppCompatActivity {
         edit.putInt("backgroundColorId", backgroundColorId);
         edit.putInt("deckNumber", deckNumber);
         edit.putInt("startedBalance", startedBalance);
+        edit.putInt("orientation", orientation);
         edit.putString("playerName", playerName);
         edit.apply();
         super.onDestroy();

@@ -21,4 +21,6 @@
     <string name="txt_player_name">Player\'s name</string>
     <string name="player">Player</string>
     <string name="txt_money_out">"Not enough money "</string>
+    <string name="txt_landscape">Landscape</string>
+    <string name="txt_portrait">Portrait</string>
 </resources>

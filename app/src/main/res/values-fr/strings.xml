@@ -21,4 +21,6 @@
     <string name="txt_player_name">Nom du joueur</string>
     <string name="player">Joueur</string>
     <string name="txt_money_out">Pas assez d\'argeent</string>
+    <string name="txt_landscape">Paysage</string>
+    <string name="txt_portrait">Portrait</string>
 </resources>
