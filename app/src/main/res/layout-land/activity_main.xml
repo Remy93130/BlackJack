@@ -19,6 +19,42 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="4"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_player"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txt_best_player"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_player_best"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:id="@+id/layout_card_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+            <LinearLayout
+                android:id="@+id/layout_result_player"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
             android:orientation="vertical"
             tools:ignore="NestedWeights">
 
@@ -46,42 +82,6 @@
 
             <LinearLayout
                 android:id="@+id/layout_result_bank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txt_player"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_player"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/txt_best_player"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_player_best"
-                android:textColor="@color/white" />
-
-            <LinearLayout
-                android:id="@+id/layout_card_player"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-
-            <LinearLayout
-                android:id="@+id/layout_result_player"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" />
