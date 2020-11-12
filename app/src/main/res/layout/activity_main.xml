@@ -4,7 +4,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_green"
     android:orientation="vertical">
 
 
@@ -56,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/txt_bank"
-            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -71,8 +69,7 @@
             android:id="@+id/txt_best_bank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_bank_best"
-            android:textColor="@color/white" />
+            android:text="@string/txt_bank_best" />
 
         <LinearLayout
             android:id="@+id/layout_result_bank"
@@ -96,7 +93,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:text="@string/txt_player"
-            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -111,8 +107,7 @@
             android:id="@+id/txt_best_player"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txt_player_best"
-            android:textColor="@color/white" />
+            android:text="@string/txt_player_best" />
 
         <LinearLayout
             android:id="@+id/layout_result_player"
@@ -144,7 +139,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_balance"
-                android:textColor="@color/white"
                 android:textSize="20sp" />
 
             <TextView
@@ -152,7 +146,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_bet"
-                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <SeekBar

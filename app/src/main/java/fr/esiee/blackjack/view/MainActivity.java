@@ -24,7 +24,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import java.util.List;
 import java.util.Locale;
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
     // region widgets
 
-    private LinearLayout container;
     private LinearLayout layoutCardPlayer;
     private LinearLayout layoutResultPlayer;
     private LinearLayout layoutCardBank;
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     // region Attributes from SharedPreferences
 
     private String locale;
-    private int backgroundColorId;
+    private int themeId;
     private int deckNumber;
     private int startedBalance;
     private int orientation;
@@ -85,15 +83,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         restoreSettings();
+        setTheme(themeId);
+        super.onCreate(savedInstanceState);
         // new BlackJackConsole();
         setRequestedOrientation(orientation);
         gameInstance = new BlackJack(deckNumber, startedBalance);
         Log.i("GAME", "Create the game with " + deckNumber + " deck(s)");
         setContentView(R.layout.activity_main);
         hydrateWidgets();
-        container.setBackgroundColor(ContextCompat.getColor(this, backgroundColorId));
         addListenerToButtonsAndBar();
         textBalance.setText(getString(R.string.txt_balance).replace("{}", String.valueOf(gameInstance.getBalance())));
         textBestBank.setText(getString(R.string.txt_bank_best).replace("{}", String.valueOf(gameInstance.getBankBest())));
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences storage = getSharedPreferences("settings", 0);
         SharedPreferences.Editor edit = storage.edit();
         edit.putString("locale", locale);
-        edit.putInt("backgroundColorId", backgroundColorId);
+        edit.putInt("themeId", themeId);
         edit.putInt("deckNumber", deckNumber);
         edit.putInt("startedBalance", startedBalance);
         edit.putInt("orientation", orientation);
@@ -149,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     // region Game logic
 
     private void hydrateWidgets() {
-        container = findViewById(R.id.container);
         layoutCardPlayer = findViewById(R.id.layout_card_player);
         layoutResultPlayer = findViewById(R.id.layout_result_player);
         layoutCardBank = findViewById(R.id.layout_card_bank);
@@ -266,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
         inputBalance.setText(String.valueOf(startedBalance));
         inputDeck.setText(String.valueOf(deckNumber));
         // Set radio button checked by default
-        if (ContextCompat.getColor(this, R.color.background_green) == backgroundColorId) {
+        if (themeId == R.style.Theme_Blackjack_Green) {
             radioBackgroundGreen.setChecked(true);
         } else {
             radioBackgroundBlack.setChecked(true);
@@ -315,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
         startedBalance = balance;
         playerName = (inputPlayer.getText().toString().isEmpty()) ? getResources().getString(R.string.player) : inputPlayer.getText().toString();
         Log.i("PL", "->" + playerName + " " + inputPlayer.getText().toString().isEmpty());
-        backgroundColorId = (radioBackgroundBlack.isChecked()) ? R.color.background_black : R.color.background_green;
+        themeId = (radioBackgroundBlack.isChecked()) ? R.style.Theme_Blackjack_Black : R.style.Theme_Blackjack_Green;
         locale = (radioButtonLocaleFr.isChecked()) ? "fr" : "en";
         orientation = (isLandscape.isChecked()) ? ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE : ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         recreate();
@@ -324,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
     private void restoreSettings() {
         SharedPreferences preferences = getSharedPreferences("settings", 0);
         deckNumber = preferences.getInt("deckNumber", BlackJack.INIT_DECK);
-        backgroundColorId = preferences.getInt("backgroundColorId", R.color.background_green);
+        themeId = preferences.getInt("themeId", R.style.Theme_Blackjack_Green);
         startedBalance = preferences.getInt("startedBalance", BlackJack.INIT_BALANCE);
         orientation = preferences.getInt("orientation", ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         playerName = preferences.getString("playerName", getResources().getString(R.string.txt_player));
