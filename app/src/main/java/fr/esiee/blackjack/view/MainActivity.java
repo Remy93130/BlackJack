@@ -262,7 +262,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void createDialog() {
         AlertDialog.Builder diag = new AlertDialog.Builder(this);
-        diag.setTitle(R.string.txt_dialog_title);
         View viewDialog = getLayoutInflater().inflate(R.layout.diag_config, null);
         // Input from dialog
         EditText inputPlayerName = viewDialog.findViewById(R.id.diag_player);
