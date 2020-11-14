@@ -153,7 +153,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:max="300"
+                android:max="301"
+                android:min="1"
                 android:progress="150"
                 tools:ignore="NestedWeights" />
         </LinearLayout>
