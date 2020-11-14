@@ -1,5 +1,8 @@
 package fr.esiee.blackjack.model;
 
+/**
+ * Enumere les 4 symboles dans un jeu de carte avec le symbole et le nom
+ */
 public enum Color {
     HEART("♥"),
     SPADE("♠"),

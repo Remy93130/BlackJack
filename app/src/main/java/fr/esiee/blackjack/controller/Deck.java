@@ -8,7 +8,14 @@ import fr.esiee.blackjack.model.Card;
 import fr.esiee.blackjack.model.Color;
 import fr.esiee.blackjack.model.Value;
 
+/**
+ * Classe qui represente les cartes disponible dans une partie de blackjack
+ */
 public class Deck {
+
+    /**
+     * Represente les cartes presentes dans le deck
+     */
     private final LinkedList<Card> cardList;
 
     /**
@@ -18,6 +25,10 @@ public class Deck {
         this(3);
     }
 
+    /**
+     * Constructeur pour creer le deck
+     * @param nbBox nombre de jeu de carte a inclure
+     */
     public Deck(int nbBox) {
         this.cardList = new LinkedList<>();
         for (int i = 0; i < nbBox; i++) {
@@ -30,6 +41,11 @@ public class Deck {
         Collections.shuffle(cardList);
     }
 
+    /**
+     * Tire une carte du deck et retire celle ci
+     * @return La carte retire
+     * @throws EmptyDeckException Si le deck est vide
+     */
     public Card draw() throws EmptyDeckException {
         if (cardList.isEmpty()) {
             throw new EmptyDeckException();

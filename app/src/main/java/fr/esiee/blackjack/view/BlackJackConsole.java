@@ -9,6 +9,9 @@ import fr.esiee.blackjack.model.Card;
 import fr.esiee.blackjack.model.Color;
 import fr.esiee.blackjack.model.Value;
 
+/**
+ * Classe pour essayer la classe Blackjack en console avant de passer au layout
+ */
 public class BlackJackConsole {
 
     public BlackJackConsole() {

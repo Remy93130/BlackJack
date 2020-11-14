@@ -128,6 +128,14 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    /**
+     * Méthode pour le changement de local
+     * Recupere un context afin de de lui attacher une nouvelle locale en lui creant un
+     * nouveau objet config qui contient la locale
+     * @param context Le context a modifier
+     * @param language Le code pays a selectionne
+     * @return Le context avec la bonne locale
+     */
     private static Context updateResources(Context context, String language) {
         Resources rs = context.getResources();
         Configuration config = rs.getConfiguration();
@@ -146,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
     // region Game logic
 
+    /**
+     * Recupere les widgets dans la vue et met a jour les attributs de la classe
+     */
     private void hydrateWidgets() {
         layoutCardPlayer = findViewById(R.id.layout_card_player);
         layoutResultPlayer = findViewById(R.id.layout_result_player);
@@ -163,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
         textBarBet = findViewById(R.id.txt_bet);
     }
 
+    /**
+     * Ajoute les listeners aux boutons et au slider
+     */
     private void addListenerToButtonsAndBar() {
         buttonAddCard.setOnClickListener(v -> {
             Toast.makeText(this, R.string.btn_card, Toast.LENGTH_SHORT).show();
@@ -216,7 +230,8 @@ public class MainActivity extends AppCompatActivity {
             clearCardsLayout();
             showCards();
             setButtonsToPlayEnabled(true);
-            playerBet();
+            gameInstance.setBalance(gameInstance.getBalance() - currentBet);
+            textBalance.setText(getString(R.string.txt_balance).replace("{}", String.valueOf(gameInstance.getBalance())));
         });
 
         barBet.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -235,15 +250,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void playerBet() {
-        gameInstance.setBalance(gameInstance.getBalance() - currentBet);
-        textBalance.setText(getString(R.string.txt_balance).replace("{}", String.valueOf(gameInstance.getBalance())));
-    }
-
     // endregion
 
     // region Settings management
 
+    /**
+     * Creation du modal pour les parametres
+     * Inflate la vue du modal pour pouvoir recuperer les widgets de la vue et check les valeurs
+     * par defaut (qui sont les valeurs actuelles)
+     * Ensuite ajoute les listeners aux boutons confirmer et annuler
+     */
     private void createDialog() {
         AlertDialog.Builder diag = new AlertDialog.Builder(this);
         diag.setTitle(R.string.txt_dialog_title);
@@ -292,6 +308,18 @@ public class MainActivity extends AppCompatActivity {
         diag.show();
     }
 
+    /**
+     * Methode appelee lorsque l utilisateur confirme les nouvelles options
+     * Met a jours les attributs de la classe en fonction de se que l utilisateur a selectionne
+     * dans les options
+     * Va ensuite recreer l activite pour appliquer ces options
+     * @param inputDeck Le champ du nombre de jeu de carte
+     * @param radioBackgroundBlack Le radiobutton pour le fond noir
+     * @param radioButtonLocaleFr Le radiobutton pour la langue francaise
+     * @param inputPlayer Le champ du nom du joueur
+     * @param inputBalance Le champ de l argent de depart
+     * @param isLandscape Le radiobutton pour l orientation paysage
+     */
     private void changeGameSettings(EditText inputDeck, RadioButton radioBackgroundBlack, RadioButton radioButtonLocaleFr, EditText inputPlayer, EditText inputBalance, RadioButton isLandscape) {
         int nbDeck, balance;
         // Cast values and fallback to default value
@@ -318,6 +346,11 @@ public class MainActivity extends AppCompatActivity {
         recreate();
     }
 
+    /**
+     * Methode appelee lorsque l on relance l activite
+     * Celle ci va restorer les attributs que l utilisateur avait selectionne ou prendre des
+     * valeurs par defaut dans le cas echeant
+     */
     private void restoreSettings() {
         SharedPreferences preferences = getSharedPreferences("settings", 0);
         deckNumber = preferences.getInt("deckNumber", BlackJack.INIT_DECK);
@@ -331,12 +364,24 @@ public class MainActivity extends AppCompatActivity {
 
     // region View management
 
+    /**
+     * Met a jour l etat des bouton pour jouer (ajout carte, stop et miser) selon le booleen passe
+     * en argument
+     * Si celui ci est a true, on considerera que le joueur peut jouer et on activera les boutons
+     * carte et stop et on desactivera le bouton miser
+     * @param state L etat des boutons
+     */
     private void setButtonsToPlayEnabled(boolean state) {
         buttonAddCard.setEnabled(state);
         buttonStopRound.setEnabled(state);
         buttonBet.setEnabled(!state);
     }
 
+    /**
+     * Ajoute une carte au layout en argument
+     * @param layout Le layout ou ajouter la carte
+     * @param token Le token de la carte
+     */
     private void addToPanel(LinearLayout layout, String token) {
         ImageView imageView = new ImageView(this);
         int imageSlug = getResources().getIdentifier(
@@ -349,6 +394,14 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(imageView);
     }
 
+    /**
+     * Permet d afficher la liste de carte en argument dans le layout egalement passe en argument
+     * On met egalement a jour le meilleur score du joueur. Pour ca on recupere qui joue dans
+     * l argument player
+     * @param layout Le layout ou afficher les cartes
+     * @param player Le joueur qui joue
+     * @param cards La liste de carte a afficher
+     */
     private void addCardsOnLayoutAndUpdateTextView(LinearLayout layout, String player, List<Card> cards) {
         layout.removeAllViewsInLayout();
         cards.forEach(card -> {
@@ -362,11 +415,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Methode qui va appeler permettre d afficher les cartes du joueur et de la banque
+     */
     private void showCards() {
         addCardsOnLayoutAndUpdateTextView(layoutCardPlayer, "player", gameInstance.getPlayerCardList());
         addCardsOnLayoutAndUpdateTextView(layoutCardBank, "bank", gameInstance.getBankCardList());
     }
 
+    /**
+     * Parmet d afficher les cartes winner, looser, draw ou blackjack selon les scores
+     */
     private void showEndGamesCards() {
         if (gameInstance.isPlayerWinner()) {
             if (gameInstance.getPlayerBest() == 21) {
@@ -386,6 +445,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Supprime toute les cartes dans les layouts
+     */
     private void clearCardsLayout() {
         layoutCardBank.removeAllViewsInLayout();
         layoutCardPlayer.removeAllViewsInLayout();
@@ -393,6 +455,10 @@ public class MainActivity extends AppCompatActivity {
         layoutResultPlayer.removeAllViewsInLayout();
     }
 
+    /**
+     * Affiche le message d une exception dans un toast
+     * @param message Le message
+     */
     private void displayErrorMessageAsToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }

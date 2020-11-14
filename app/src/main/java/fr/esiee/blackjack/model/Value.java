@@ -1,5 +1,8 @@
 package fr.esiee.blackjack.model;
 
+/**
+ * Enumere les valeurs disponible dans un jeu de carte avec le nombre de point et son symbole
+ */
 public enum Value {
     AS("A", 1),
     TWO("2", 2),
