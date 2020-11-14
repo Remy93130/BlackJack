@@ -11,6 +11,7 @@
     <color name="secondary">#A1887F</color>
     <color name="accent">#FFCA28</color>
     <color name="primary_dark">#BB86FC</color>
+    <color name="primary_dark_variant">#D1ACFD</color>
     <color name="secondary_dark">#03DAC5</color>
     <color name="background_green">#006400</color>
     <color name="background_black">#333333</color>
