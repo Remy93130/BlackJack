@@ -12,7 +12,7 @@
 
 * Gestion des couleurs en passant par les thèmes
 
-## Difficultées rencontrées
+## Difficultés rencontrées
 
 * Gestion du i18n
 
